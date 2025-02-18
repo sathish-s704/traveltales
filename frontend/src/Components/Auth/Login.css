@@ -1,0 +1,74 @@
+/* Container for the form */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f5f5f5;
+}
+  
+/* Form styling */
+.login-form {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+  
+/* Input fields */
+.login-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+  
+.login-form input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+  
+/* Button styling */
+.login-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+  
+.login-form button:hover {
+    background-color: #0056b3;
+}
+  
+/* Error message */
+.error-message {
+    color: #ff0000;
+    font-size: 14px;
+    margin-bottom: 1rem;
+}
+  
+/* Link to register page */
+.register-link {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 14px;
+}
+  
+.register-link a {
+    color: #007bff;
+    text-decoration: none;
+}
+  
+.register-link a:hover {
+    text-decoration: underline;
+}
