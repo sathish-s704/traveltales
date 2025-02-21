@@ -33,6 +33,23 @@
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
+/* Forgot password link */
+.forgot-password-link {
+  text-align: right;
+  margin-bottom: 1rem;
+  font-size: 14px;
+}
+
+.forgot-password-link a {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 14px;
+}
+
+.forgot-password-link a:hover {
+  text-decoration: underline;
+}
+
 /* Button styling */
 .register-form button {
   width: 100%;

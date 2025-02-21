@@ -5,15 +5,15 @@ const userSchema = new mongoose.Schema({
   fullName: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  verifyOtp: { type: String,default: ''},
+  verifyOtpExpiredAt: { type: Number,default: 0},
+  isAccountVerified: { type: Boolean, default: false },
+  resetOtp:{ type: String, default:false},
+  resetOtpExpireAt:{ type: Number, default:0},
+ 
 });
 
-// Hash password before saving
-userSchema.pre("save", async function (next) {
-  if (this.isModified("password")) {
-    this.password = await bcrypt.hash(this.password, 10);
-  }
-  next();
-});
 
-export default mongoose.model("User", userSchema);
 
+const userModel=mongoose.models.user||mongoose.model("User", userSchema);
+export default userModel;

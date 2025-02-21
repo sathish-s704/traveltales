@@ -2,24 +2,19 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./Register.css";
-
+import Footer from "../Footer";
 
 const Register = () => {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
-    password: "",
-    confirmPassword: "",
+    password: ""
   });
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (formData.password !== formData.confirmPassword) {
-      setError("Passwords do not match");
-      return;
-    }
     try {
       await axios.post("http://localhost:3000/api/auth/register", formData);
       alert("Registration successful.");
@@ -55,21 +50,17 @@ const Register = () => {
           required
           onChange={(e) => setFormData({ ...formData, password: e.target.value })}
         />
-        <input
-          type="password"
-          name="confirmPassword"
-          placeholder="Confirm Password"
-          required
-          onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-        />
+        <div className="forgot-password-link">
+          <a href="/reset-password">Forgot Password?</a>
+        </div>
         <button type="submit">Register</button>
         <div className="login-link">
           Already have an account? <a href="/login">Login here</a>
         </div>
       </form>
+      <Footer />
     </div>
   );
 };
 
 export default Register;
-

@@ -1,8 +1,11 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Register from './Components/Auth/Register';
-import Login from './Components/Auth/Login';
-import ResetPassword from './Components/Auth/ResetPassword';
+import Register from './Components/pages/Register';
+import Login from './Components/pages/Login';
+import ResetPassword from './Components/pages/ResetPassword';
+import Home from './Components/pages/Home';
+import VerifyEmail from './Components/pages/Emailverify';
+
 
 
 const App = () => {
@@ -10,9 +13,11 @@ const App = () => {
     <div>
       < Router>
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/reset-password/:token" element={<ResetPassword />} />
+          <Route path="/verify-email" element={< VerifyEmail />} />
+          <Route path="/reset-password" element={<ResetPassword />} />  
 
         </Routes> 
       </Router> 

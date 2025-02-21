@@ -3,20 +3,46 @@ import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import cors from "cors";
-import router from "./routes/authRoutes.js"; // Correct import
+import authRoutes from "./routes/authRoutes.js";
+import cookieParser from "cookie-parser";
+import userRouter from "./routes/userRoutes.js";
+
+
+
+dotenv.config();
 
 const app = express();
 
+
 // Middleware for parsing JSON requests
+
+
+
+// app.use(cors({credentials: true}));
+
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+}));
+
+
+
 app.use(bodyParser.json());
-app.use(cors());
-dotenv.config();
+
+
+app.use(cookieParser());
+
 
 const port = process.env.PORT || 4000;
 const db = process.env.MONGO_URI;
 
 // Use the authentication routes
-app.use("/api/auth", router);
+app.use("/api/auth", authRoutes);
+app.use("/api/user", userRouter);
+
+
 
 // Connect to the database
 mongoose

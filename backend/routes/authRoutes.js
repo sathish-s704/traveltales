@@ -1,12 +1,16 @@
 import express from "express";
-import * as authController from "../controllers/authController.js"; // Use `import * as` syntax
+import * as authController from "../controllers/authController.js";
+import userAuth from "../middleware/userAuth.js";
 
-const router = express.Router();
+const authRoutes = express.Router();
 
-router.post("/register", authController.register);
-router.post("/login", authController.login);
-router.post("/reset-password", authController.resetPassword);
+authRoutes.post("/register", authController.register);
+authRoutes.post("/login", authController.login);
+authRoutes.post("/logout", authController.logout);
+authRoutes.post("/sent-verify-otp", userAuth, authController.sentVerifyOtp);
+authRoutes.post("/verify-email", userAuth, authController.verifyEmail); // Requires authentication
+authRoutes.post("/is-auth", userAuth, authController.isAuthendicated);
+authRoutes.post("/reset-otp", authController.sentResetOtp);
+authRoutes.post("/reset-password", authController.resetPassword);
 
-export default router;
-
-
+export default authRoutes;
