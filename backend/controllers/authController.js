@@ -43,7 +43,7 @@ export const register = async (req, res) => {
     }
 }
 
-// Login user
+// Login user// Login user
 export const login = async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) {
@@ -61,18 +61,32 @@ export const login = async (req, res) => {
         }
 
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
+
+        // Set token as HTTP-only cookie
         res.cookie("token", token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
             sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
-            maxAge:7*24*60*60*1000,
+            maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
         });
 
-        res.json({ success: true, message: "Login successful" });
+        // ✅ Send the token in the response body as well
+        res.json({ 
+            success: true, 
+            message: "Login successful",
+            token,  // Include token here
+            userData: {
+                _id: user._id,
+                fullName: user.fullName,
+                email: user.email,
+                isAccountVerified: user.isAccountVerified,
+            }
+        });
+
     } catch (error) {
         res.json({ success: false, message: error.message });
     }
-}
+};
 
 // Logout user
 export const logout = async (req, res) => {

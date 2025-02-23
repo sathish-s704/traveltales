@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./Register.css";
 import Footer from "../Footer";
+import Header from "../Header";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -26,6 +27,7 @@ const Register = () => {
 
   return (
     <div className="register-container">
+      <Header/>
       <form className="register-form" onSubmit={handleSubmit}>
         <h2>Register</h2>
         {error && <div className="error-message">{error}</div>}

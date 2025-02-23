@@ -1,0 +1,76 @@
+/* Container for the email verification page */
+.verify-email-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f2f5;
+}
+
+/* Form styling */
+.verify-email-container form {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+/* Form heading */
+.verify-email-container h2 {
+    margin-bottom: 1rem;
+    color: #333;
+    font-size: 24px;
+}
+
+/* OTP input field */
+.otp-input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Input focus effect */
+.otp-input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Verification button */
+.verify-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.verify-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Message styling */
+.message {
+    color: #ff0000;
+    font-size: 14px;
+    margin-top: 1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .verify-email-container form {
+        width: 90%;
+        padding: 1.5rem;
+    }
+}

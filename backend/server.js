@@ -6,6 +6,7 @@ import cors from "cors";
 import authRoutes from "./routes/authRoutes.js";
 import cookieParser from "cookie-parser";
 import userRouter from "./routes/userRoutes.js";
+import adminRouter from "./routes/adminRoutes.js";
 
 
 
@@ -41,6 +42,7 @@ const db = process.env.MONGO_URI;
 // Use the authentication routes
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRouter);
+app.use("/api/admin",adminRouter);
 
 
 

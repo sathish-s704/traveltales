@@ -4,7 +4,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
-import Footer from "../Footer";
+import Header from "../Header";
+
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -13,29 +14,38 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(""); // Clear previous errors
+    setError("");
+  
     try {
       const response = await axios.post(
         "http://localhost:3000/api/auth/login",
         formData,
-        { withCredentials: true }
+        { withCredentials: true } // Ensure cookies are included
       );
-
-      if (response.data.success) {
-        localStorage.setItem("token", response.data.token); // Store token in localStorage
+  
+      console.log("Login API Response:", response.data);
+  
+      if (response.data.success && response.data.token) {
+        console.log("Storing Token:", response.data.token);
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("userId", response.data.userData._id); // Store userId
+  
         alert("User logged in successfully!");
         navigate("/");
       } else {
-        setError(response.data.message); // Show backend error messages
+        setError(response.data.message || "Login failed.");
       }
     } catch (error) {
-      console.error("Login error:", error.response ? error.response.data : error.message);
+      console.error("Login error:", error.response?.data || error.message);
       setError("An error occurred. Please try again.");
     }
   };
+  
 
   return (
+
     <div className="login-container">
+      <Header/>
       <form className="login-form" onSubmit={handleSubmit}>
         <h2>Login</h2>
         {error && <p className="error-message">{error}</p>}
@@ -63,7 +73,7 @@ const Login = () => {
           Don't have an account? <a href="/register">Register here</a>
         </div>
       </form>
-      <Footer />
+   
     </div>
   );
 };

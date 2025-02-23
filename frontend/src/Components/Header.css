@@ -1,0 +1,33 @@
+.header {
+    background-color:black;
+    color: white;
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: center; /* Centers content horizontally */
+    align-items: center;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Ensures text and logo stay centered */
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.logo-img {
+    width: 40px; /* Adjust size */
+    height: 40px;
+    margin-right: 10px; /* Space between logo and text */
+}

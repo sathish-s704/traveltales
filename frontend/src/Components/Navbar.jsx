@@ -1,10 +1,8 @@
-
-
-
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Navbar.css";
+import logo from "../assets/logo.png"; 
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -14,29 +12,23 @@ const Navbar = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       const token = localStorage.getItem("token");
-    
       if (!token) {
-        console.warn("No token found");
         setUser(null);
         return;
       }
-    
+
       try {
         const response = await axios.get("http://localhost:3000/api/user/data", {
           headers: { Authorization: `Bearer ${token}` },
           withCredentials: true,
         });
-    
-        console.log("API Response:", response.data); // Debugging
-    
-        if (response.data.success && response.data.userData) {
+
+        if (response.data.success) {
           setUser(response.data.userData);
         } else {
-          console.error("Failed to fetch user data:", response.data.message);
           setUser(null);
         }
       } catch (error) {
-        console.error("Error fetching user data:", error);
         setUser(null);
       }
     };
@@ -44,50 +36,37 @@ const Navbar = () => {
     fetchUserData();
   }, []);
 
-
   const handleLogout = async () => {
-    await axios.post("http://localhost:3000/api/auth/logout", {}, { withCredentials: true });
-    localStorage.removeItem("token");
-    alert("Logged out successfully!");
-    setUser(null);
-    navigate("/");
+    try {
+      await axios.post("http://localhost:3000/api/auth/logout", {}, { withCredentials: true });
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      setUser(null);
+      navigate("/login");
+    } catch (error) {
+      console.error("Logout error:", error.response ? error.response.data : error.message);
+    }
   };
 
-  
-const handleVerifyEmail = async () => {
-  console.log("User state:", user); // Debugging
-  if (!user || !user._id) {
-    console.error("User ID is missing!", user);
-    alert("User ID is missing!");
-    return;
-  }
+  const handleAdminClick = () => {
+    navigate("/admin/signin"); // Navigate to Admin Sign-in page
+  };
 
-  try {
-    const response = await axios.post(
-      "http://localhost:3000/api/auth/sent-verify-otp",
-      { userId: user._id },
-      { withCredentials: true }
-    );
-
-    if (response.data.success) {
-      alert("OTP sent to your email!");
-      navigate("/verify-email");
-    } else {
-      alert(response.data.message);
-    }
-  } catch (error) {
-    console.error("Error sending OTP:", error);
-    alert("Failed to send OTP.");
-  }
-};
-
-  
   return (
     <nav className="navbar">
       <div className="logo">
-        <Link to="/">Travel Tales</Link>
+        <Link to="/" className="logo">
+          <img src={logo} alt="Logo" className="logo-img" />
+          Travel Tales
+        </Link>
       </div>
+      
       <div className="nav-links">
+        {/* Admin Button (Visible for Everyone) */}
+        <button onClick={handleAdminClick} className="admin-button">
+          Admin
+        </button>
+
         {user ? (
           <div className="user-menu">
             <button className="user-button" onClick={() => setDropdownOpen(!dropdownOpen)}>
@@ -95,11 +74,6 @@ const handleVerifyEmail = async () => {
             </button>
             {dropdownOpen && (
               <div className="dropdown-menu">
-                {!user.isAccountVerified && (
-                  <button onClick={handleVerifyEmail} className="verify-email-btn">
-                    Verify Email
-                  </button>
-                )}
                 <button onClick={handleLogout} className="logout-btn">
                   Logout
                 </button>
@@ -117,4 +91,3 @@ const handleVerifyEmail = async () => {
 };
 
 export default Navbar;
-
